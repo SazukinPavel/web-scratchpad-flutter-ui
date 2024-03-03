@@ -4,19 +4,34 @@ void main() {
   runApp(const MyApp());
 }
 
+class Note {
+  String title;
+
+  String description;
+
+  int? createdAt;
+
+  Note({
+    this.title = '',
+    this.description = '',
+  }) {
+    createdAt = DateTime.now().millisecondsSinceEpoch;
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Web Scratchpad Flutter UI',
       theme: ThemeData(
-        colorScheme:
-            ColorScheme.fromSeed(seedColor: Color.fromARGB(255, 28, 1, 182)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 111, 4, 133)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Web Scratchpad Flutter UI'),
     );
   }
 }
@@ -31,18 +46,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 1;
+  List<Note> _notes = <Note>[];
+  Note _newNote = Note();
 
-  void _incrementCounter() {
+  void _addNote() {
     setState(() {
-      _counter = _counter + 1;
+      _notes = [
+        ..._notes,
+        Note(description: _newNote.description, title: _newNote.title)
+      ];
+      _newNote = Note();
     });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter = _counter - 1;
-    });
+    Navigator.pop(context);
   }
 
   @override
@@ -52,37 +67,77 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      body: ListView.builder(
+          padding: const EdgeInsets.all(8),
+          itemCount: _notes.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Card(
+                child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                    leading: const Icon(Icons.note),
+                    title: Text(
+                      _notes[index].title,
+                      style: const TextStyle(fontSize: 20.00),
+                    ),
+                    subtitle: Text(_notes[index].description)),
+              ],
+            ));
+          }),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
             padding: const EdgeInsets.all(2.50),
             child: FloatingActionButton(
-              onPressed: _incrementCounter,
-              tooltip: 'Increment',
+              onPressed: () => showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => Dialog(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Text(
+                                'Add new note',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                width: 250,
+                                child: TextField(
+                                  onChanged: (text) => _newNote.title = text,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Title',
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                width: 250,
+                                child: TextField(
+                                  onChanged: (text) =>
+                                      _newNote.description = text,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Description',
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              TextButton(
+                                onPressed: _addNote,
+                                child: const Text('Add'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+              tooltip: 'Add new note',
               child: const Icon(Icons.add),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(2.50),
-            child: FloatingActionButton(
-              onPressed: _decrementCounter,
-              tooltip: 'Decrement',
-              child: const Icon(Icons.remove),
             ),
           ),
         ],
