@@ -60,6 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.pop(context);
   }
 
+  void _deleteNote(int index) {
+    _notes.remove(_notes[index]);
+
+    setState(() {
+      _notes = [
+        ..._notes,
+      ];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +92,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: const TextStyle(fontSize: 20.00),
                     ),
                     subtitle: Text(_notes[index].description)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.delete),
+                      tooltip: 'Delete',
+                      onPressed: () => _deleteNote(index),
+                    ),
+                  ],
+                ),
               ],
             ));
           }),
