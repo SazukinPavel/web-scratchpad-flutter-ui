@@ -1,4 +1,4 @@
-# flutterexample
+# web_scratchpad
 
 A new Flutter project.
 

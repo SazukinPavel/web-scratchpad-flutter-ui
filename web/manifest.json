@@ -1,6 +1,6 @@
 {
-    "name": "flutterexample",
-    "short_name": "flutterexample",
+    "name": "web_scratchpad",
+    "short_name": "web_scratchpad",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
