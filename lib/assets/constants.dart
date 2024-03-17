@@ -1,0 +1,1 @@
+const String APP_NAME="Web Scratchpad Flutter UI";

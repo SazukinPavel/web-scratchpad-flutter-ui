@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_scratchpad/models/note.dart';
 import 'package:web_scratchpad/providers/notes_provider.dart';
+import 'package:web_scratchpad/assets/constants.dart' as constants;
 
 class AddNote extends StatefulWidget {
-  const AddNote({super.key, required this.title});
-
-  final String title;
+  const AddNote({super.key});
 
   @override
   State<AddNote> createState() => _AddNoteState();
@@ -30,7 +29,7 @@ class _AddNoteState extends State<AddNote> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text(constants.APP_NAME),
       ),
       body: Center(
         child: Column(

@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:web_scratchpad/providers/notes_provider.dart';
 import 'package:web_scratchpad/screens/add_note/add_note.dart';
 import 'package:provider/provider.dart';
+import 'package:web_scratchpad/assets/constants.dart' as constants;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,10 +15,7 @@ class _HomePageState extends State<HomePage> {
   void _addNote() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => const AddNote(
-                title: 'Add new note',
-              )),
+      MaterialPageRoute(builder: (context) => const AddNote()),
     );
   }
 
@@ -30,7 +26,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text(constants.APP_NAME),
       ),
       body: ListView.builder(
           padding: const EdgeInsets.all(8),
