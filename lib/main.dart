@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:web_scratchpad/providers/notes_provider.dart';
-import 'package:web_scratchpad/screens/home/home.dart';
+import 'package:web_scratchpad/routes/routes.dart';
 import 'package:web_scratchpad/assets/constants.dart' as constants;
 
 void main() {
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 111, 4, 133)),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      initialRoute: '/notes',
+      routes: appRoutes,
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:web_scratchpad/providers/notes_provider.dart';
-import 'package:web_scratchpad/screens/add_note/add_note.dart';
 import 'package:provider/provider.dart';
 import 'package:web_scratchpad/assets/constants.dart' as constants;
 
@@ -13,10 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   void _addNote() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AddNote()),
-    );
+    Navigator.pushNamed(context, '/notes/add');
   }
 
   @override
